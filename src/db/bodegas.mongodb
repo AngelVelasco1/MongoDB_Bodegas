@@ -1,0 +1,13 @@
+use("db_campus_bodegas");
+
+db.createCollection("users", {
+    capped: true,
+    size: 890,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id", "nombre", "email", "estado", "password"]
+        }
+    }
+})

@@ -10,5 +10,17 @@
     "mongodb": "5.8.0",
     "reflect-metadata": "0.1.13",
     "typescript": "5.1.6"
-  }
+  },
+  "name": "mongodb_bodegas",
+  "version": "1.0.0",
+  "main": "./src/app.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon --quiet /src/app.js",
+    "tsc": "tsc -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
