@@ -1,13 +1,492 @@
 use("db_campus_bodegas");
 
+//? users
 db.createCollection("users", {
     capped: true,
-    size: 890,
+    size: 990,
     max: 5,
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["id", "nombre", "email", "estado", "password"]
+            title: "Users Validation",
+            required: ["id", "nombre", "email", "estado", "password"],
+            properties: {
+                id: {
+                    bsonType: "int",
+                    minimum: 1,
+                    maximum: 20,
+                    description: "user id is required. Must be interger"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9\\s]+$",
+                    minLength: 3,
+                    maxLength: 50,
+                    description: "user name is required. Must be string without special characters"
+                },
+                email: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                    description: "email is required. Must be string with a similar pattern: example@gmail.com"
+                },
+                email_verified_at: {
+                    bsonType: "date",
+                    description: "email verified date. Must be a date"
+                },
+                foto: {
+                    bsonType: "string",
+                    pattern: '^([a-zA-Z]:)?(?:[\\/\\\\]?[\\w\\s.@-]+)*[\\/\\\\]?\\w+\\.(?:jpg|jpeg|png|gif)$',
+                    description: "user photo path. Must be a string path valid in linux or windows"
+                },
+                password: {
+                    bsonType: "string",
+                    description: "user password. Must be a string"
+                },
+                estado: {
+                    bsonType: "int",
+                    enum: [1, 2],
+                    description: "estado. Must be valid interger 1 or 2"
+                },
+                created_by: {
+                    bsonType: "objectId",
+                    description: "user creator id. Must be an objectId"
+                },
+                update_by: {
+                    bsonType: "objectId",
+                    description: "user updader id. Must be an objectId"
+                },
+                created_at: {
+                    bsonType: "date",
+                    description: "user create. Must be a date"
+                },
+                updated_at: {
+                    bsonType: "date",
+                    description: "user update. Must be a date"
+                },
+                deleted_at: {
+                    bsonType: "date",
+                    description: "user delete. Must be a date"
+                }                
+            }
         }
     }
 })
+db.users.insertMany([
+    {
+        id: 1,
+        nombre: 'user 1',
+        email: 'user1@example.com',
+        email_verified_at: new Date("2023-05-02"),
+        foto: 'docs/users/user1.png',
+        password: '17*fdde',
+        estado: 1
+    },
+    {
+        id: 2,
+        nombre: 'user 2',
+        email: 'user2@example.com',
+        email_verified_at: new Date("2023-03-09"),
+        foto: 'docs/users/user2.png',
+        password: '27*fdde',
+        estado: 1
+    },
+    {
+        id: 3,
+        nombre: 'user 3',
+        email: 'user3@example.com',
+        email_verified_at: new Date("2023-02-21"),
+        foto: 'docs/users/user3.png',
+        password: '37*fdde',
+        estado: 2
+    },
+    {
+        id: 4,
+        nombre: 'user 4',
+        email: 'user4@example.com',
+        email_verified_at: new Date("2023-04-25"),
+        foto: 'docs/users/user4.png',
+        password: '47*fdde',
+        estado: 1
+    },
+    {
+        id: 5,
+        nombre: 'user 5',
+        email: 'user5@example.com',
+        email_verified_at: new Date("2023-01-10"),
+        foto: 'docs/users/user5.png',
+        password: '57*fdde',
+        estado: 2
+    }
+]);
+
+//? bodegas
+use("db_campus_bodegas");
+db.createCollection("bodegas", {
+    capped: true,
+    size: 790,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "bodegas Validation",
+            required: ["id", "nombre", "id_responsable", "estado"],
+            properties: {
+                id: {
+                    bsonType: "int",
+                    minimum: 1,
+                    maximum: 50,
+                    description: "bodega id is required. Must be interger between 1 to 50"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9\\s]+$",
+                    minLength: 3,
+                    maxLength: 50,
+                    description: "bodega name is required. Must be string without special characters"
+                },
+                id_responsable: {
+                    bsonType: "int",
+                    enum: [1, 2, 3, 4, 5],
+                    "$ref": "users",
+                    description: "user id in charge of the bodega. Must be valid interger"
+                },
+                estado: {
+                    bsonType: "int",
+                    enum: [1, 2],
+                    description: "bodega estado. Must be valid interger 1 or 2"
+                },
+                created_by: {
+                    bsonType: "objectId",
+                    description: "bodega creator id. Must be an objectId"
+                },
+                update_by: {
+                    bsonType: "objectId",
+                    description: "bodega updader id. Must be an objectId"
+                },
+                created_at: {
+                    bsonType: "date",
+                    description: "bodega create. Must be a date"
+                },
+                updated_at: {
+                    bsonType: "date",
+                    description: "bodega update. Must be a date"
+                },
+                deleted_at: {
+                    bsonType: "date",
+                    description: "bodega delete. Must be a date"
+                }                
+            }
+        }
+    }
+})
+db.bodegas.insertMany([
+    {
+        id: 1,
+        nombre: 'Premium Ard',
+        id_responsable: 1,
+        estado: 2
+    },
+    {
+        id: 2,
+        nombre: 'All in one',
+        id_responsable: 3,
+        estado: 2
+    },
+    {
+        id: 3,
+        nombre: 'New era',
+        id_responsable: 2,
+        estado: 2
+    },
+    {
+        id: 4,
+        nombre: 'USA mark',
+        id_responsable: 5,
+        estado: 2
+    },
+    {
+        id: 5,
+        nombre: 'Special objects',
+        id_responsable: 4,
+        estado: 2
+    }
+])
+
+//? inventarios
+use("db_campus_bodegas");
+db.createCollection("inventarios", {
+    capped: true,
+    size: 790,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "inventarios Validation",
+            required: ["id", "id_bodega", "id_producto", "cantidad" ],
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "inventario id is required. Must be an interger"
+                },
+                id_bodega: {
+                    bsonType: "int",
+                    enum: [1, 2, 3, 4, 5],
+                    
+                    description: "bodega id is required. Must be a valid interger"
+                },
+                id_producto: {
+                    bsonType: "int",
+                    enum: [1, 2, 3, 4, 5],
+                    
+                    description: "producto id is required. Must be valid interger"
+                },
+                cantidad: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 1000,
+                    description: "cantidad in inventarios is required. Must be valid interger in a range of 0 to 1000"
+                },
+                created_by: {
+                    bsonType: "objectId",
+                    description: "inventario creator id. Must be an objectId"
+                },
+                update_by: {
+                    bsonType: "objectId",
+                    description: "inventario updader id. Must be an objectId"
+                },
+                created_at: {
+                    bsonType: "date",
+                    description: "inventario create. Must be a date"
+                },
+                updated_at: {
+                    bsonType: "date",
+                    description: "inventario update. Must be a date"
+                },
+                deleted_at: {
+                    bsonType: "date",
+                    description: "inventario delete. Must be a date"
+                }                
+            }
+        }
+    }
+});
+db.inventarios.insertMany([
+    {
+        id: 1,
+        id_bodega: 2,
+        id_producto: 4,
+        cantidad: 50
+    },
+    {
+        id: 2,
+        id_bodega: 1,
+        id_producto: 3,
+        cantidad: 150
+    },
+    {
+        id: 3,
+        id_bodega: 3,
+        id_producto: 2,
+        cantidad: 580
+    },
+    {
+        id: 4,
+        id_bodega: 4,
+        id_producto: 1,
+        cantidad: 900
+    },
+    {
+        id: 5,
+        id_bodega: 5,
+        id_producto: 5,
+        cantidad: 850
+    }
+]);
+
+//? productos
+use("db_campus_bodegas");
+db.createCollection("productos", {
+    capped: true,
+    size: 790,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "productos Validation",
+            required: ["id", "nombre", "descripcion", "estado" ],
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "producto id is required. Must be an interger"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9\\s]+$",
+                    minLength: 3,
+                    maxLength: 50,
+                    description: "nombre producto is required. Must be a string without special characters"
+                },
+                descripcion: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9\\s]+$",
+                    minLength: 10,
+                    maxLength: 250,
+                    description: "descripcion producto is required. Must be a string without special characters"
+                },
+                estado: {
+                    bsonType: "int",
+                    enum: [1, 2],
+                    description: "producto estado. Must be valid interger 1 or 2"
+                },
+                created_by: {
+                    bsonType: "objectId",
+                    description: "producto creator id. Must be an objectId"
+                },
+                update_by: {
+                    bsonType: "objectId",
+                    description: "producto updader id. Must be an objectId"
+                },
+                created_at: {
+                    bsonType: "date",
+                    description: "producto create. Must be a date"
+                },
+                updated_at: {
+                    bsonType: "date",
+                    description: "producto update. Must be a date"
+                },
+                deleted_at: {
+                    bsonType: "date",
+                    description: "producto delete. Must be a date"
+                }                
+            }
+        }
+    }
+});
+db.productos.insertMany([
+    {
+        id: 1,
+        nombre: 'Mac',
+        descripcion: 'Descripcion del Producto 1',
+        estado: 1
+    },
+    {
+        id: 2,
+        nombre: 'hp mouse',
+        descripcion: 'Descripcion del Producto 2',
+        estado: 2
+    },
+    {
+        id: 3,
+        nombre: 'keyboard magic',
+        descripcion: 'Descripcion del Producto 3',
+        estado: 1
+    },
+    {
+        id: 4,
+        nombre: 'display samsumg',
+        descripcion: 'Descripcion del Producto 4',
+        estado: 1
+    },
+    {
+        id: 5,
+        nombre: 'usb c',
+        descripcion: 'Descripcion del Producto 5',
+        estado: 2
+    }
+]);
+
+//? historiales
+use("db_campus_bodegas");
+db.createCollection("historiales", {
+    capped: true,
+    size: 790,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "historiales Validation",
+            required: ["id", "cantidad", "id_bodega_origen", "id_bodega_destino", "id_inventario" ],
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "historial id is required. Must be an interger"
+                },
+                cantidad: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 1000,
+                    description: "cantidad historiales is required. Must be valid interger in a range of 0 to 1000"
+                },
+                id_bodega_origen: {
+                    bsonType: "int",
+                    description: "origin bodega id is required. Must be an interger"
+                },
+                id_bodega_destino: {
+                    bsonType: "int",
+                    description: "destiny bodega id is required. Must be an interger"
+                },
+                id_inventario: {
+                    bsonType: "int",
+                    description: "inventario id is required. Must be an interger"
+                },
+                created_by: {
+                    bsonType: "objectId",
+                    description: "historial creator id. Must be an objectId"
+                },
+                update_by: {
+                    bsonType: "objectId",
+                    description: "historial updader id. Must be an objectId"
+                },
+                created_at: {
+                    bsonType: "date",
+                    description: "historial create. Must be a date"
+                },
+                updated_at: {
+                    bsonType: "date",
+                    description: "historial update. Must be a date"
+                },
+                deleted_at: {
+                    bsonType: "date",
+                    description: "historial delete. Must be a date"
+                }                
+            }
+        }
+    }
+});
+db.historiales.insertMany([
+    {
+        id: 1,
+        cantidad: 100,
+        id_bodega_origen: 1,
+        id_bodega_destino: 2,
+        id_inventario: 1
+    },
+    {
+        id: 2,
+        cantidad: 252,
+        id_bodega_origen: 2,
+        id_bodega_destino: 1,
+        id_inventario: 2
+    },
+    {
+        id: 3,
+        cantidad: 182,
+        id_bodega_origen: 3,
+        id_bodega_destino: 4,
+        id_inventario: 3
+    },
+    {
+        id: 4,
+        cantidad: 450,
+        id_bodega_origen: 4,
+        id_bodega_destino: 5,
+        id_inventario: 4
+    },
+    {
+        id: 5,
+        cantidad: 500,
+        id_bodega_origen: 5,
+        id_bodega_destino: 3,
+        id_inventario: 5
+    }
+]);
