@@ -6,9 +6,8 @@ dotenv.config('../.');
 const uri = `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@cluster0.tfk8jyc.mongodb.net/${process.env.ATLAS_DB}`;
 const options = {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    
-    retryWrites: true // Habilitar Retryable Writes
+    useUnifiedTopology: true, 
+    retryWrites: true // Enable Retryable Writes
 };
 
 export const getConx = async () => {
