@@ -2,6 +2,11 @@ import { Expose } from 'class-transformer';
 import { IsDefined, IsInt, IsString } from 'class-validator';
 
 export class Bodega {
+    @Expose({ name: 'id' })
+    @IsDefined({ message: 'Bodega id is required' })
+    @IsInt({ message: 'Bodega id must be a interger' })
+    id: number;
+
     @Expose({ name: 'name' })
     @IsDefined({ message: 'Bodega name is required' })
     @IsString({ message: 'Bodega name must be a string' })
@@ -34,6 +39,7 @@ export class Bodega {
     
     constructor(data: Partial<Bodega>) {
         Object.assign(this, data);
+        this.id = 1;
         this.nombre = "Premium Ard";
         this.id_responsable = 1;
         this.estado = 2

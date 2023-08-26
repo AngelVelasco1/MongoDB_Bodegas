@@ -18,4 +18,23 @@ export class BodegaService {
             await endConx();
         }
     }
+    static async createBodegas (req, res)  {
+        try {
+            const db = await getConx();
+            const bodegas = db.collection('bodegas');
+
+            const { id, nombre, id_responsable, estado } = req.body
+            const bodega = { id, nombre, id_responsable, estado };
+            const newBodega = await bodegas.insertOne(bodega);
+            res.status(201).json(newBodega);
+        } 
+        catch(err) {
+            res.status(500).send(err.message)
+        }
+        finally {
+            await endConx();
+        }
+
+
+    }
 }

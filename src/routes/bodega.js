@@ -5,6 +5,7 @@ import { Router } from 'express';
 
 const storageBodega = Router();
 
-storageBodega.get('/', verifyClass, limitGrt(), BodegaService.getBodegas);
+storageBodega.get('/look', verifyClass, BodegaService.getBodegas);
+storageBodega.post('/create', verifyClass, dtoBody, BodegaService.createBodegas);
 
 export { storageBodega };

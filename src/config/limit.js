@@ -12,12 +12,14 @@ export const limitGrt = () => {
         legacyHeaders: false,
         // Funcion que determina si debemos omitir el limite para algunas solicitudes
         skip: (req, res) => {
-            const sizeLimit = process.env.LIMIT;
             const headerLength = req.headers["content-length"];
+            const sizeLimit = process.env.LIMIT;
+
             // Si el tamaño del contenido excede al limite, saltamos este limite
             if (headerLength > sizeLimit) {
                 res.status(413).send({
                     message: `Payload too large. Maximum size allowed: ${sizeLimit}`
+
                 });
                 return true; 
             }

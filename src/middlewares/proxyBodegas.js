@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { plainToInstance, instanceToPlain, classToPlain, plainToClass } from 'class-transformer';
+import { plainToInstance, instanceToPlain } from 'class-transformer';
 import { newInstance } from '../token/auth.js';
 import { validate } from 'class-validator';
 import { Router } from 'express';
@@ -14,11 +14,8 @@ verifyClass.use((req, res, next) => {
         payload = newPayload
 
         const newClass = newInstance(collection);
-        console.log(newClass);
     
-        const clone = JSON.stringify(classToPlain(plainToClass(newClass.class, {}, { ignoreDecorators: true })));
-        console.log(clone);
-        console.log(JSON.stringify(payload));
+        const clone = JSON.stringify(instanceToPlain(plainToInstance(newClass.class, {}, { ignoreDecorators: true })));
         const compareClone = clone === JSON.stringify(payload);
     
         delete req.data;
@@ -37,7 +34,7 @@ export const dtoBody = async(req, res, next) => {
 
         const errors = await validate(data);
         if (errors.length) {
-            res.status(400).json({ errors });
+            res.status(400).json({ errors: errors.map(err => err.constraints) });
         } else {
             req.body = JSON.parse(JSON.stringify(data));
             delete req.data;

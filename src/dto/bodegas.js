@@ -12,11 +12,18 @@ import { IsDefined, IsInt, IsString } from 'class-validator';
 export class Bodega {
     constructor(data) {
         Object.assign(this, data);
+        this.id = 1;
         this.nombre = "Premium Ard";
         this.id_responsable = 1;
         this.estado = 2;
     }
 }
+__decorate([
+    Expose({ name: 'id' }),
+    IsDefined({ message: 'Bodega id is required' }),
+    IsInt({ message: 'Bodega id must be a interger' }),
+    __metadata("design:type", Number)
+], Bodega.prototype, "id", void 0);
 __decorate([
     Expose({ name: 'name' }),
     IsDefined({ message: 'Bodega name is required' }),
