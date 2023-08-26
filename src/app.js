@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { getConx } from './db/atlas.js';
 import { createToken, verifyToken } from './token/auth.js'
-import { storageBodega } from "./routes/bodega.js";
+import { storageBodega } from "./routes/bodegas.js";
 
 //? Env
 dotenv.config();

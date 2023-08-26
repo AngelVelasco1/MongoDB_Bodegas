@@ -14,9 +14,6 @@ export class BodegaService {
         catch(err) {
             res.status(500).send({ error: err.message });
         }
-        finally {
-            await endConx();
-        }
     }
     static async createBodegas (req, res)  {
         try {
@@ -25,6 +22,11 @@ export class BodegaService {
 
             const { id, nombre, id_responsable, estado } = req.body
             const bodega = { id, nombre, id_responsable, estado };
+
+            const sameId = await bodegas.findOne({ id });
+            if (sameId) return res.status(400).send({error: 'Duplicated id'})
+
+
             const newBodega = await bodegas.insertOne(bodega);
             res.status(201).json(newBodega);
         } 
