@@ -9,10 +9,10 @@ const options = {
     useUnifiedTopology: true, 
     retryWrites: true // Enable Retryable Writes
 };
+const client = await MongoClient.connect(uri, options);
 
 export const getConx = async () => {
     try {
-        const client = await MongoClient.connect(uri, options);
         return client.db();
     } 
     catch (err) {
@@ -23,15 +23,7 @@ export const getConx = async () => {
     }
 }
 
-export const getCollection = async (collection) => {
-    try {
-        const db = await getConx();
-        return db.collection(collection);
-    } 
-    catch(err) {
-        return {
-            status: 500,
-            err: err
-        }
-    }
+export const endConx = async () => {
+    await client.close();
+    console.log('Connection closed');
 }
