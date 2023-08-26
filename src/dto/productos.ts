@@ -12,7 +12,7 @@ export class Producto {
     @IsString({ message: 'Producto name must be a string' })
     nombre: string;
 
-    @Expose({ name: 'idCharger' })
+    @Expose({ name: 'descripcion' })
     @IsDefined({ message: 'The charger id is required' })
     @IsInt({ message: 'The charger id must be an integer' })
     descripcion: string; 
@@ -39,7 +39,7 @@ export class Producto {
     
     constructor(data: Partial<Producto>) {
         Object.assign(this, data);
-        this.id = 1,
+        this.id = 5,
         this.nombre = "HP Portable",
         this.descripcion = "Descripcion del Producto",
         this.estado = 1

@@ -3,7 +3,8 @@ import express from "express";
 import dotenv from "dotenv";
 import { getConx } from './db/atlas.js';
 import { createToken, verifyToken } from './token/auth.js'
-import { storageBodega } from "./routes/bodegas.js";
+import { storageBodegas } from "./routes/bodegas.js";
+import { storageProductos } from "./routes/productos.js";
 
 //? Env
 dotenv.config();
@@ -18,7 +19,8 @@ app.use('/:collection', async (req, res, next) => {
 })
 
 app.use('/app/token', createToken);
-app.use('/bodegas', verifyToken, storageBodega);
+app.use('/bodegas', verifyToken, storageBodegas);
+app.use('/productos', verifyToken, storageProductos);
 
 //? Server
 const server = JSON.parse(process.env.SERVER);

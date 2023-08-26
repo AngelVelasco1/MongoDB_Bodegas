@@ -1,10 +1,11 @@
 import 'reflect-metadata';
 import dotenv from 'dotenv';
 import { Router } from 'express';
-import { plainToInstance, instanceToPlain, plainToClass, classToPlain } from 'class-transformer';
+import { plainToInstance, instanceToPlain } from 'class-transformer';
 import { SignJWT, jwtVerify } from 'jose';
 
-import { Bodega } from '../dto/bodegas.js'
+import { Bodega } from '../dto/bodegas.js';
+import { Producto } from '../dto/productos.js';
 
 dotenv.config("../../");
 
@@ -13,11 +14,13 @@ const verifyToken = Router();
 
 export const newInstance = (className) => {
     const match = {
-        "bodegas": Bodega
+        "bodegas": Bodega,
+        "productos": Producto
+
     };
     const instance = match[className];
     if (instance) {
-        return { atributes: plainToClass(instance, {}, { ignoreDecorators: true }), class: instance }
+        return { atributes: plainToInstance(instance, {}, { ignoreDecorators: true }), class: instance }
     } else {
         throw new Error("Invalid collection")
 

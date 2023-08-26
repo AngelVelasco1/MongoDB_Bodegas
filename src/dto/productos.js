@@ -9,49 +9,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Expose } from 'class-transformer';
 import { IsDefined, IsInt, IsString } from 'class-validator';
-export class Bodega {
+export class Producto {
     constructor(data) {
         Object.assign(this, data);
-        this.nombre = "Premium Ard";
-        this.id_responsable = 1;
-        this.estado = 2;
+        this.id = 5,
+            this.nombre = "HP Portable",
+            this.descripcion = "Descripcion del Producto",
+            this.estado = 1;
     }
 }
 __decorate([
-    Expose({ name: 'name' }),
-    IsDefined({ message: 'Bodega name is required' }),
-    IsString({ message: 'Bodega name must be a string' }),
-    __metadata("design:type", String)
-], Bodega.prototype, "nombre", void 0);
+    Expose({ name: 'id' }),
+    IsDefined({ message: 'Producto id is required' }),
+    IsInt({ message: 'Producto id must be a interger' }),
+    __metadata("design:type", Number)
+], Producto.prototype, "id", void 0);
 __decorate([
-    Expose({ name: 'idCharger' }),
+    Expose({ name: 'name' }),
+    IsDefined({ message: 'Producto name is required' }),
+    IsString({ message: 'Producto name must be a string' }),
+    __metadata("design:type", String)
+], Producto.prototype, "nombre", void 0);
+__decorate([
+    Expose({ name: 'descripcion' }),
     IsDefined({ message: 'The charger id is required' }),
     IsInt({ message: 'The charger id must be an integer' }),
-    __metadata("design:type", Number)
-], Bodega.prototype, "id_responsable", void 0);
+    __metadata("design:type", String)
+], Producto.prototype, "descripcion", void 0);
 __decorate([
     Expose({ name: 'status' }),
-    IsDefined({ message: 'The bodega status is required' }),
-    IsInt({ message: 'The bodega status must be an integer' }),
+    IsDefined({ message: 'The Producto status is required' }),
+    IsInt({ message: 'The Producto status must be an integer' }),
     __metadata("design:type", Number)
-], Bodega.prototype, "estado", void 0);
+], Producto.prototype, "estado", void 0);
 __decorate([
     Expose({ name: 'createdBy' }),
     __metadata("design:type", String)
-], Bodega.prototype, "created_by", void 0);
+], Producto.prototype, "created_by", void 0);
 __decorate([
     Expose({ name: 'updatedBy' }),
     __metadata("design:type", String)
-], Bodega.prototype, "updated_by", void 0);
+], Producto.prototype, "updated_by", void 0);
 __decorate([
     Expose({ name: 'createdAt' }),
     __metadata("design:type", Date)
-], Bodega.prototype, "created_at", void 0);
+], Producto.prototype, "created_at", void 0);
 __decorate([
     Expose({ name: 'updatedAt' }),
     __metadata("design:type", Date)
-], Bodega.prototype, "updated_at", void 0);
+], Producto.prototype, "updated_at", void 0);
 __decorate([
     Expose({ name: 'deletedAt' }),
     __metadata("design:type", Date)
-], Bodega.prototype, "deleted_at", void 0);
+], Producto.prototype, "deleted_at", void 0);

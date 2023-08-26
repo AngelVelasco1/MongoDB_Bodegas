@@ -26,7 +26,6 @@ export class BodegaService {
             const sameId = await bodegas.findOne({ id });
             if (sameId) return res.status(400).send({error: 'Duplicated id'})
 
-
             const newBodega = await bodegas.insertOne(bodega);
             res.status(201).json(newBodega);
         } 
