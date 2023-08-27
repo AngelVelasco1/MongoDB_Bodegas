@@ -5,6 +5,8 @@ import { getConx } from './db/atlas.js';
 import { createToken, verifyToken } from './token/auth.js'
 import { storageBodegas } from "./routes/bodegas.js";
 import { storageProductos } from "./routes/productos.js";
+import { storageInventarios } from "./routes/inventarios.js";
+
 
 //? Env
 dotenv.config();
@@ -21,6 +23,7 @@ app.use('/:collection', async (req, res, next) => {
 app.use('/app/token', createToken);
 app.use('/bodegas', verifyToken, storageBodegas);
 app.use('/productos', verifyToken, storageProductos);
+app.use('/inventarios', verifyToken, storageInventarios);
 
 //? Server
 const server = JSON.parse(process.env.SERVER);

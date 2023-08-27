@@ -8,57 +8,50 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose } from 'class-transformer';
-import { IsDefined, IsInt, IsString } from 'class-validator';
-export class Producto {
+import { IsDefined, IsInt } from 'class-validator';
+export class Inventario {
     constructor(data) {
         Object.assign(this, data);
-        this.id = 5,
-            this.nombre = "HP Portable",
-            this.descripcion = "Descripcion del Producto",
-            this.estado = 1;
+        this.id_bodega = 1,
+            this.id_producto = 1,
+            this.cantidad = 1;
     }
 }
 __decorate([
-    Expose({ name: 'id' }),
-    IsDefined({ message: 'Producto id is required' }),
-    IsInt({ message: 'Producto id must be an interger' }),
+    Expose({ name: 'bodegaId' }),
+    IsDefined({ message: 'bodegaId is required' }),
+    IsInt({ message: 'bodegaId must be an interger' }),
     __metadata("design:type", Number)
-], Producto.prototype, "id", void 0);
+], Inventario.prototype, "id_bodega", void 0);
 __decorate([
-    Expose({ name: 'name' }),
-    IsDefined({ message: 'Producto name is required' }),
-    IsString({ message: 'Producto name must be a string' }),
-    __metadata("design:type", String)
-], Producto.prototype, "nombre", void 0);
-__decorate([
-    Expose({ name: 'description' }),
-    IsDefined({ message: 'The description is required' }),
-    IsString({ message: 'The description must be a string' }),
-    __metadata("design:type", String)
-], Producto.prototype, "descripcion", void 0);
-__decorate([
-    Expose({ name: 'status' }),
-    IsDefined({ message: 'The Producto status is required' }),
-    IsInt({ message: 'The Producto status must be an integer' }),
+    Expose({ name: 'productoId' }),
+    IsDefined({ message: 'productoId is required' }),
+    IsInt({ message: 'productoId must be an interger' }),
     __metadata("design:type", Number)
-], Producto.prototype, "estado", void 0);
+], Inventario.prototype, "id_producto", void 0);
+__decorate([
+    Expose({ name: 'amount' }),
+    IsDefined({ message: 'amount is required' }),
+    IsInt({ message: 'amount must be an interger' }),
+    __metadata("design:type", Number)
+], Inventario.prototype, "cantidad", void 0);
 __decorate([
     Expose({ name: 'createdBy' }),
     __metadata("design:type", String)
-], Producto.prototype, "created_by", void 0);
+], Inventario.prototype, "created_by", void 0);
 __decorate([
     Expose({ name: 'updatedBy' }),
     __metadata("design:type", String)
-], Producto.prototype, "updated_by", void 0);
+], Inventario.prototype, "updated_by", void 0);
 __decorate([
     Expose({ name: 'createdAt' }),
     __metadata("design:type", Date)
-], Producto.prototype, "created_at", void 0);
+], Inventario.prototype, "created_at", void 0);
 __decorate([
     Expose({ name: 'updatedAt' }),
     __metadata("design:type", Date)
-], Producto.prototype, "updated_at", void 0);
+], Inventario.prototype, "updated_at", void 0);
 __decorate([
     Expose({ name: 'deletedAt' }),
     __metadata("design:type", Date)
-], Producto.prototype, "deleted_at", void 0);
+], Inventario.prototype, "deleted_at", void 0);

@@ -6,6 +6,7 @@ import { SignJWT, jwtVerify } from 'jose';
 
 import { Bodega } from '../dto/bodegas.js';
 import { Producto } from '../dto/productos.js';
+import { Inventario } from '../dto/inventarios.js';
 
 dotenv.config("../../");
 
@@ -15,7 +16,8 @@ const verifyToken = Router();
 export const newInstance = (className) => {
     const match = {
         "bodegas": Bodega,
-        "productos": Producto
+        "productos": Producto,
+        "inventarios": Inventario
 
     };
     const instance = match[className];

@@ -4,7 +4,7 @@ import { IsDefined, IsInt, IsString } from 'class-validator';
 export class Producto {
     @Expose({ name: 'id' })
     @IsDefined({ message: 'Producto id is required' })
-    @IsInt({ message: 'Producto id must be a interger' })
+    @IsInt({ message: 'Producto id must be an interger' })
     id: number;
 
     @Expose({ name: 'name' })
