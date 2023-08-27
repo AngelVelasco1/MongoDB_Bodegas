@@ -222,12 +222,9 @@ db.createCollection("inventarios", {
         $jsonSchema: {
             bsonType: "object",
             title: "inventarios Validation",
-            required: ["id", "id_bodega", "id_producto", "cantidad" ],
+            required: ["id_bodega", "id_producto", "cantidad" ],
             properties: {
-                id: {
-                    bsonType: "int",
-                    description: "inventario id is required. Must be an interger"
-                },
+
                 id_bodega: {
                     bsonType: "int",
                     enum: [1, 2, 3, 4, 5],
@@ -272,31 +269,26 @@ db.createCollection("inventarios", {
 });
 db.inventarios.insertMany([
     {
-        id: 1,
         id_bodega: 2,
         id_producto: 4,
         cantidad: 50
     },
     {
-        id: 2,
         id_bodega: 1,
         id_producto: 3,
         cantidad: 150
     },
     {
-        id: 3,
         id_bodega: 3,
         id_producto: 2,
         cantidad: 580
     },
     {
-        id: 4,
         id_bodega: 4,
         id_producto: 1,
         cantidad: 900
     },
     {
-        id: 5,
         id_bodega: 5,
         id_producto: 5,
         cantidad: 850

@@ -31,9 +31,9 @@ __decorate([
     __metadata("design:type", String)
 ], Producto.prototype, "nombre", void 0);
 __decorate([
-    Expose({ name: 'descripcion' }),
-    IsDefined({ message: 'The charger id is required' }),
-    IsInt({ message: 'The charger id must be an integer' }),
+    Expose({ name: 'description' }),
+    IsDefined({ message: 'The description is required' }),
+    IsString({ message: 'The description must be a string' }),
     __metadata("design:type", String)
 ], Producto.prototype, "descripcion", void 0);
 __decorate([

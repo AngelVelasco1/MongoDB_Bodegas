@@ -12,9 +12,9 @@ export class Producto {
     @IsString({ message: 'Producto name must be a string' })
     nombre: string;
 
-    @Expose({ name: 'descripcion' })
-    @IsDefined({ message: 'The charger id is required' })
-    @IsInt({ message: 'The charger id must be an integer' })
+    @Expose({ name: 'description' })
+    @IsDefined({ message: 'The description is required' })
+    @IsString({ message: 'The description must be a string' })
     descripcion: string; 
 
     @Expose({ name: 'status' })
